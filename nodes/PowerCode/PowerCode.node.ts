@@ -28,16 +28,16 @@ export class PowerCode implements INodeType {
 				type: 'options',
 				options: [
 					{
-						name: 'Run Once for Each Item',
-						value: 'each',
-						description:
-							'Execute code once for each item. Access current item via $input.item or item variable',
-					},
-					{
 						name: 'Run Once for All Items',
 						value: 'all',
 						description:
-							'Execute code once for all items. Access all items via $input.all() or items variable',
+							'Execute code once for all items. Access all items via $input.all() or items variable.',
+					},
+					{
+						name: 'Run Once for Each Item',
+						value: 'each',
+						description:
+							'Execute code once for each item. Access current item via $input.item or item variable.',
 					},
 				],
 				default: 'all',

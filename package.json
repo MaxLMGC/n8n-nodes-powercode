@@ -8,7 +8,8 @@
         "n8n-community-node-package"
     ],
     "author": {
-        "name": "MaxLMGC"
+        "name": "MaxLMGC",
+        "email": "lmgc.top@gmail.com"
     },
     "repository": {
         "type": "git",

@@ -44,7 +44,7 @@ All 57+ libraries are pre-loaded as global variables — no `require()` needed.
 `joi`, `validator`, `Ajv`, `yup`, `zod`, `qs`
 
 ### Files & Documents
-`ExcelJS` (exceljs), `xlsxtream`, `Papa` (papaparse), `ini`, `toml`
+`ExcelJS` (exceljs) — supports streaming read/write for large files, `xlsxtream` — streaming XLSX reader, `Papa` (papaparse), `ini`, `toml`
 
 ### Web & HTTP
 `axios`, `cheerio`, `FormData` (form-data)
@@ -102,18 +102,27 @@ $('.product-card').each((i, elem) => {
 return _.filter(products, 'inStock');
 ```
 
-### Excel File Processing
+### Excel File Processing (Streaming — supports large files)
 
 ```js
-const workbook = new ExcelJS.Workbook();
+// Read large Excel files with streaming (memory efficient)
+const workbookReader = new ExcelJS.stream.xlsx.WorkbookReader(binaryData);
+for await (const worksheetReader of workbookReader) {
+  for await (const row of worksheetReader) {
+    // Process each row without loading entire file into memory
+    const values = row.values;
+  }
+}
+
+// Write Excel files with streaming
+const workbook = new ExcelJS.stream.xlsx.WorkbookWriter({ stream: fs.createWriteStream('output.xlsx') });
 const sheet = workbook.addWorksheet('Report');
 sheet.columns = [
   { header: 'Name', key: 'name' },
   { header: 'Email', key: 'email' },
 ];
-items.forEach(item => sheet.addRow(item));
-const buffer = await workbook.xlsx.writeBuffer();
-return { binary: { data: buffer, mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' } };
+items.forEach(item => sheet.addRow(item).commit());
+await workbook.commit();
 ```
 
 ### JWT Authentication
