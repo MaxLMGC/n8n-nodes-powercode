@@ -1,6 +1,6 @@
 {
     "name": "n8n-nodes-powercode",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "n8n node to execute custom JavaScript code with built-in utility libraries",
     "license": "MIT",
     "homepage": "https://github.com/MaxLMGC/n8n-nodes-powercode",
