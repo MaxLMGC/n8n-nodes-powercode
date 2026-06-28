@@ -1,27 +1,155 @@
 # n8n-nodes-powercode
 
-n8n node to execute custom JavaScript code with built-in utility libraries
+Execute custom JavaScript code with 57+ built-in libraries in n8n workflows.
+
+Power Code is the ultimate code execution node for n8n. Unlike the built-in Code node that ships with zero libraries, Power Code comes pre-loaded with 57+ production-ready JavaScript libraries — from data processing and validation to blockchain and media processing.
 
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/sustainable-use-license/) workflow automation platform.
 
 ## Installation
 
-Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/) in the n8n community nodes documentation.
+### n8n Community Edition
+
+1. Open your n8n instance
+2. Go to **Settings** → **Community Nodes**
+3. Click **Install a community node**
+4. Enter: `n8n-nodes-powercode`
+5. Click **Install**
+6. Find "Power Code" in your node list
+
+### Docker Users
+
+```yaml
+environment:
+  - N8N_COMMUNITY_PACKAGES_ENABLED=true
+```
+
+Then install through the UI as shown above.
 
 ## Operations
 
-Execute custom JavaScript code with 57+ built-in libraries including lodash, axios, dayjs, cheerio, crypto-js, exceljs, and more.
+The Power Code node executes your custom JavaScript code in two modes:
+
+- **Run Once for All Items** — Execute code once for all items. Access all items via `$input.all()` or `items` variable.
+- **Run Once for Each Item** — Execute code once for each item. Access current item via `$input.item` or `item` variable.
+
+All 57+ libraries are pre-loaded as global variables — no `require()` needed.
+
+## Complete Library List (57 Working Libraries)
+
+### Data Processing
+`lodash (_)`, `dayjs`, `moment` (moment-timezone), `dateFns` (date-fns), `dateFnsTz` (date-fns-tz), `bytes`, `ms`, `uuid` (as `uuidv4`), `nanoid`
+
+### Validation & Parsing
+`joi`, `validator`, `Ajv`, `yup`, `zod`, `qs`
+
+### Files & Documents
+`ExcelJS` (exceljs), `xlsxtream`, `Papa` (papaparse), `ini`, `toml`
+
+### Web & HTTP
+`axios`, `cheerio`, `FormData` (form-data)
+
+### Text & Content
+`Handlebars`, `marked`, `htmlToText` (html-to-text), `xml2js`, `XMLParser` (fast-xml-parser), `YAML`, `pluralize`, `slug`, `stringSimilarity` (string-similarity), `fuzzy` (fuse.js)
+
+### Security & Crypto
+`CryptoJS` (crypto-js), `jwt` (jsonwebtoken), `bcrypt` (bcryptjs), `forge` (node-forge)
+
+### Specialized
+`QRCode` (qrcode), `iban`, `phoneNumber` (libphonenumber-js)
+
+### Natural Language
+`franc` (franc-min), `compromise`
+
+### Async Control
+`pRetry` (p-retry)
+
+### Data Operations
+`jsonDiff` (json-diff-ts), `cronParser` (cron-parser)
+
+### Blockchain & Crypto
+`web3`, `solana` (@solana/web3.js), `bitcoin` (bitcoinjs-lib), `secp256k1` (@noble/secp256k1), `bip39` (@scure/bip39), `ccxt`, `coinGecko` (coingecko-api-v3)
+
+### Media Processing
+`ytdl` (@distube/ytdl-core), `ffmpeg` (fluent-ffmpeg), `ffmpegStatic` (ffmpeg-static)
+
+## Usage Examples
+
+### Data Transformation with lodash & dayjs
+
+```js
+const firstItem = items[0];
+const name = _.get(firstItem, 'name', 'World');
+return {
+  greeting: 'Hello, ' + name + '!',
+  timestamp: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+};
+```
+
+### Web Scraping with axios & cheerio
+
+```js
+const response = await axios.get('https://example.com/products');
+const $ = cheerio.load(response.data);
+const products = [];
+$('.product-card').each((i, elem) => {
+  products.push({
+    title: $(elem).find('.title').text().trim(),
+    price: parseFloat($(elem).find('.price').text().replace('$', '')),
+    inStock: $(elem).find('.stock-status').hasClass('available'),
+  });
+});
+return _.filter(products, 'inStock');
+```
+
+### Excel File Processing
+
+```js
+const workbook = new ExcelJS.Workbook();
+const sheet = workbook.addWorksheet('Report');
+sheet.columns = [
+  { header: 'Name', key: 'name' },
+  { header: 'Email', key: 'email' },
+];
+items.forEach(item => sheet.addRow(item));
+const buffer = await workbook.xlsx.writeBuffer();
+return { binary: { data: buffer, mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' } };
+```
+
+### JWT Authentication
+
+```js
+const token = jwt.sign(
+  { userId: user.id, email: user.email },
+  'your-secret-key',
+  { expiresIn: '24h' }
+);
+const hashedPassword = await bcrypt.hash(password, 12);
+return { token, hashedPassword };
+```
+
+### Data Validation
+
+```js
+const schema = joi.object({
+  email: joi.string().email().required(),
+  age: joi.number().min(18).max(100),
+});
+const { error, value } = schema.validate($input.item.json);
+if (error) throw new Error(`Validation failed: ${error.message}`);
+return value;
+```
 
 ## Compatibility
 
 Compatible with n8n version 1.0+
 
-## Usage
+## Version History
 
-1. Add the "Power Code" node to your workflow.
-2. Write your custom JavaScript code.
-3. Choose between "Run Once for Each Item" or "Run Once for All Items" mode.
+### 1.0.1
+- Initial release with 57 built-in libraries
 
 ## Resources
 
 * [n8n community nodes documentation](https://docs.n8n.io/integrations/#community-nodes)
+* [GitHub Repository](https://github.com/MaxLMGC/n8n-nodes-powercode)
