@@ -139,8 +139,16 @@ return {
 		// eslint-disable-next-line @typescript-eslint/no-require-imports
 		const xlsxtream = require('xlsxtream');
 		// eslint-disable-next-line @typescript-eslint/no-require-imports
-		const xlsx = require('xlsx');
-		const XLSX = xlsx;
+		let xlsx: any;
+		let XLSX: any;
+		try {
+			xlsx = require('xlsx');
+			XLSX = xlsx;
+		} catch (e) {
+			// xlsx native module (wmf) may fail in sandboxed environments
+			xlsx = {};
+			XLSX = {};
+		}
 		// eslint-disable-next-line @typescript-eslint/no-require-imports
 		const fuzzy = require('fuse.js');
 		// eslint-disable-next-line @typescript-eslint/no-require-imports
