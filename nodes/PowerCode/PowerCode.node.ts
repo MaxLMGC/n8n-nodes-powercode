@@ -138,10 +138,10 @@ return {
 		const ExcelJS = require('exceljs');
 		// eslint-disable-next-line @typescript-eslint/no-require-imports
 		const xlsxtream = require('xlsxtream');
-		// eslint-disable-next-line @typescript-eslint/no-require-imports
-		let xlsx: any;
-		let XLSX: any;
+		let xlsx: Record<string, unknown>;
+		let XLSX: Record<string, unknown>;
 		try {
+			// eslint-disable-next-line @typescript-eslint/no-require-imports
 			xlsx = require('xlsx');
 			XLSX = xlsx;
 		} catch (e) {
