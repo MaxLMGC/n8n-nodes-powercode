@@ -13,7 +13,7 @@ export class PowerCode implements INodeType {
 		icon: { light: 'file:powercode.svg', dark: 'file:powercode.dark.svg' },
 		group: ['transform'],
 		version: 1,
-		description: 'Execute custom JavaScript code with 57+ built-in libraries',
+		description: 'Execute custom JavaScript code with 58+ built-in libraries',
 		subtitle: 'Write and run custom code',
 		defaults: {
 			name: 'Power Code',
@@ -56,7 +56,7 @@ export class PowerCode implements INodeType {
 //   _ / lodash, axios, cheerio, dayjs, moment, dateFns, dateFnsTz
 //   joi / Joi, validator, uuid, Ajv, yup, zod, xml2js, XMLParser, YAML
 //   papaparse / Papa, Handlebars, CryptoJS, forge, jwt, bcrypt / bcryptjs
-//   QRCode, ExcelJS, xlsxtream, fuzzy, stringSimilarity, slug, pluralize, qs, FormData
+//   QRCode, ExcelJS, xlsxtream, xlsx, fuzzy, stringSimilarity, slug, pluralize, qs, FormData
 //   ini, toml, nanoid, bytes, phoneNumber, iban, web3, ytdl
 //   ffmpeg, ffmpegStatic, utils, ccxt, coinGecko, solana, bitcoin
 //   secp256k1, bip39, franc, compromise, pRetry, htmlToText
@@ -138,6 +138,9 @@ return {
 		const ExcelJS = require('exceljs');
 		// eslint-disable-next-line @typescript-eslint/no-require-imports
 		const xlsxtream = require('xlsxtream');
+		// eslint-disable-next-line @typescript-eslint/no-require-imports
+		const xlsx = require('xlsx');
+		const XLSX = xlsx;
 		// eslint-disable-next-line @typescript-eslint/no-require-imports
 		const fuzzy = require('fuse.js');
 		// eslint-disable-next-line @typescript-eslint/no-require-imports

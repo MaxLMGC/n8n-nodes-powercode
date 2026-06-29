@@ -1,8 +1,8 @@
 # n8n-nodes-powercode
 
-Execute custom JavaScript code with 57+ built-in libraries in n8n workflows.
+Execute custom JavaScript code with 58+ built-in libraries in n8n workflows.
 
-Power Code is the ultimate code execution node for n8n. Unlike the built-in Code node that ships with zero libraries, Power Code comes pre-loaded with 57+ production-ready JavaScript libraries — from data processing and validation to blockchain and media processing.
+Power Code is the ultimate code execution node for n8n. Unlike the built-in Code node that ships with zero libraries, Power Code comes pre-loaded with 58+ production-ready JavaScript libraries — from data processing and validation to blockchain and media processing.
 
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/sustainable-use-license/) workflow automation platform.
 
@@ -33,9 +33,9 @@ The Power Code node executes your custom JavaScript code in two modes:
 - **Run Once for All Items** — Execute code once for all items. Access all items via `$input.all()` or `items` variable.
 - **Run Once for Each Item** — Execute code once for each item. Access current item via `$input.item` or `item` variable.
 
-All 57+ libraries are pre-loaded as global variables — no `require()` needed.
+All 58+ libraries are pre-loaded as global variables — no `require()` needed.
 
-## Complete Library List (57 Working Libraries)
+## Complete Library List (58 Working Libraries)
 
 ### Data Processing
 `lodash (_)`, `dayjs`, `moment` (moment-timezone), `dateFns` (date-fns), `dateFnsTz` (date-fns-tz), `bytes`, `ms`, `uuid` (as `uuidv4`), `nanoid`
@@ -44,7 +44,7 @@ All 57+ libraries are pre-loaded as global variables — no `require()` needed.
 `joi`, `validator`, `Ajv`, `yup`, `zod`, `qs`
 
 ### Files & Documents
-`ExcelJS` (exceljs) — supports streaming read/write for large files, `xlsxtream` — streaming XLSX reader, `Papa` (papaparse), `ini`, `toml`
+`ExcelJS` (exceljs) — supports streaming read/write for large files, `xlsxtream` — streaming XLSX reader, `XLSX` (xlsx) — classic XLSX read/write, `Papa` (papaparse), `ini`, `toml`
 
 ### Web & HTTP
 `axios`, `cheerio`, `FormData` (form-data)
@@ -155,8 +155,11 @@ Compatible with n8n version 1.0+
 
 ## Version History
 
-### 1.0.1
-- Initial release with 57 built-in libraries
+### 1.2.0
+- Added `xlsx` library for classic XLSX read/write support
+
+### 1.1.0
+- Initial release with 58 built-in libraries
 
 ## Resources
 

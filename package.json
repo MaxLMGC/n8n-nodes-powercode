@@ -4,7 +4,7 @@
     "publishConfig": {
         "access": "public"
     },
-    "description": "n8n node to execute custom JavaScript code with built-in utility libraries",
+    "description": "n8n node to execute custom JavaScript code with 58+ built-in libraries",
     "license": "MIT",
     "homepage": "https://github.com/MaxLMGC/n8n-nodes-powercode",
     "keywords": [
@@ -103,6 +103,7 @@
         "uuid": "^14.0.1",
         "validator": "^13.15.35",
         "web3": "^4.16.0",
+        "xlsx": "^0.18.5",
         "xlsxtream": "^2.0.6",
         "xml2js": "^0.6.2",
         "yaml": "^2.9.0",
