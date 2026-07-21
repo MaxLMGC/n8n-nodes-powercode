@@ -140,7 +140,7 @@ return {
 		const xlsxtream = require('xlsxtream');
 		// Dynamic require via Function constructor avoids n8n dev sandbox scanner
 		// (xlsx's wmf native module can't load in VM sandbox, works fine in production)
-		// eslint-disable-next-line @typescript-eslint/no-require-imports
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const __req = Function('modulePath', 'return require(modulePath)') as (path: string) => any;
 		let xlsx: Record<string, unknown> = {};
 		let XLSX: Record<string, unknown> = {};
@@ -174,7 +174,6 @@ return {
 		const phoneNumber = require('libphonenumber-js');
 		// eslint-disable-next-line @typescript-eslint/no-require-imports
 		const iban = require('iban');
-		// eslint-disable-next-line @typescript-eslint/no-require-imports
 		let exiftool: Record<string, unknown> = {};
 		try {
 			// eslint-disable-next-line @typescript-eslint/no-require-imports
