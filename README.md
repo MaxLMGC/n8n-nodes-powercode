@@ -168,14 +168,14 @@ Compatible with n8n version 1.0+
 
 ## Version History
 
-### 1.3.0
-- Added `exiftool-vendored` library for reading/writing EXIF metadata
+### 1.1.2
+- Added `exiftool-vendored` (EXIF metadata) and `xlsx` (classic XLSX read/write) — 59 libraries total
 
-### 1.2.0
-- Added `xlsx` library for classic XLSX read/write support
+### 1.1.1
+- Fixed GitHub Actions publish workflow (NPM_TOKEN injection, eslint compatibility)
 
 ### 1.1.0
-- Initial release with 59 built-in libraries
+- Initial release with 57 built-in libraries
 
 ## Resources
 
