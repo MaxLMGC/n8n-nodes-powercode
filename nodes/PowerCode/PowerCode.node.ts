@@ -62,6 +62,9 @@ export class PowerCode implements INodeType {
 //   secp256k1, bip39, franc, compromise, pRetry, htmlToText
 //   marked, jsonDiff, cronParser, ms
 //
+// Special variables:
+//   $('NodeName') — access upstream node data: .item.json, .all(), .first(), .last()
+//
 // Mode "each" variables:  item, $item, $index, $input
 // Mode "all" variables:   items, $input
 //
@@ -221,6 +224,20 @@ return {
 		const utils = {
 			sleep: (duration: number) => new Promise((resolve) => setTimeout(resolve, duration)),
 			clone: <T>(obj: T): T => JSON.parse(JSON.stringify(obj)),
+		};
+
+		// Simplified $() helper — mimics n8n's built-in Code node $('NodeName') pattern
+		// Supports: $('Name').item.json, $('Name').all(), $('Name').first(), $('Name').last()
+		// eslint-disable-next-line @typescript-eslint/naming-convention
+		const $ = (nodeName: string) => {
+			const inputData = items.map((item) => item.json);
+			return {
+				get item() { return inputData[0] || {}; },
+				all: () => inputData,
+				first: () => inputData[0] || {},
+				last: () => inputData[inputData.length - 1] || {},
+				get json() { return inputData[0] || {}; },
+			};
 		};
 
 		if (mode === 'all') {
