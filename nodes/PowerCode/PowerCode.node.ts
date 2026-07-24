@@ -142,10 +142,11 @@ return {
 		// eslint-disable-next-line @typescript-eslint/no-require-imports
 		const xlsxtream = require('xlsxtream');
 		// [TODO: uncomment xlsx below for production — disabled for n8n-dev sandbox testing]
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const __req = Function('modulePath', 'return require(modulePath)') as (path: string) => any;
 		let xlsx: Record<string, unknown> = {};
 		let XLSX: Record<string, unknown> = {};
-		try { xlsx = __req('xlsx'); XLSX = xlsx; } catch (_e) {}
+		try { xlsx = __req('xlsx'); XLSX = xlsx; } catch (_e) { /* xlsx not available in sandbox */ }
 		// eslint-disable-next-line @typescript-eslint/no-require-imports
 		const fuzzy = require('fuse.js');
 		// eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -223,7 +224,6 @@ return {
 
 		// $() helper — tries n8n's Workflow Data Proxy for cross-node access,
 		// falls back to current input data when proxy is unavailable
-		// eslint-disable-next-line @typescript-eslint/naming-convention
 		const $ = (nodeName: string) => {
 			// Attempt to use n8n's internal workflow data proxy (access ANY upstream node)
 			try {
