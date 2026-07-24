@@ -57,7 +57,7 @@ export class PowerCode implements INodeType {
 //   joi / Joi, validator, uuid, Ajv, yup, zod, xml2js, XMLParser, YAML
 //   papaparse / Papa, Handlebars, CryptoJS, forge, jwt, bcrypt / bcryptjs
 //   QRCode, ExcelJS, xlsxtream, xlsx, fuzzy, stringSimilarity, slug, pluralize, qs, FormData
-//   ini, toml, nanoid, bytes, phoneNumber, iban, exiftool, web3, ytdl
+//   ini, toml, nanoid, bytes, phoneNumber, iban, iconv, exiftool, web3, ytdl
 //   ffmpeg, ffmpegStatic, utils, ccxt, coinGecko, solana, bitcoin
 //   secp256k1, bip39, franc, compromise, pRetry, htmlToText
 //   marked, jsonDiff, cronParser, ms

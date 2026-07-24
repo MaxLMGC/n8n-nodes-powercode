@@ -1,8 +1,8 @@
 # n8n-nodes-powercode
 
-Execute custom JavaScript code with 59+ built-in libraries in n8n workflows.
+Execute custom JavaScript code with 60+ built-in libraries in n8n workflows.
 
-Power Code is the ultimate code execution node for n8n. Unlike the built-in Code node that ships with zero libraries, Power Code comes pre-loaded with 59+ production-ready JavaScript libraries — from data processing and validation to blockchain and media processing.
+Power Code is the ultimate code execution node for n8n. Unlike the built-in Code node that ships with zero libraries, Power Code comes pre-loaded with 60+ production-ready JavaScript libraries — from data processing and validation to blockchain and media processing.
 
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/sustainable-use-license/) workflow automation platform.
 
@@ -33,9 +33,9 @@ The Power Code node executes your custom JavaScript code in two modes:
 - **Run Once for All Items** — Execute code once for all items. Access all items via `$input.all()` or `items` variable.
 - **Run Once for Each Item** — Execute code once for each item. Access current item via `$input.item` or `item` variable.
 
-All 59+ libraries are pre-loaded as global variables — no `require()` needed.
+All 60+ libraries are pre-loaded as global variables — no `require()` needed.
 
-## Complete Library List (59 Working Libraries)
+## Complete Library List (60 Working Libraries)
 
 ### Data Processing
 `lodash (_)`, `dayjs`, `moment` (moment-timezone), `dateFns` (date-fns), `dateFnsTz` (date-fns-tz), `bytes`, `ms`, `uuid` (as `uuidv4`), `nanoid`
@@ -56,7 +56,7 @@ All 59+ libraries are pre-loaded as global variables — no `require()` needed.
 `CryptoJS` (crypto-js), `jwt` (jsonwebtoken), `bcrypt` (bcryptjs), `forge` (node-forge)
 
 ### Specialized
-`QRCode` (qrcode), `iban`, `phoneNumber` (libphonenumber-js), `exiftool` (exiftool-vendored) — read/write EXIF metadata
+`QRCode` (qrcode), `iban`, `phoneNumber` (libphonenumber-js), `iconv` (iconv-lite) — character encoding conversion, `exiftool` (exiftool-vendored) — read/write EXIF metadata
 
 ### Natural Language
 `franc` (franc-min), `compromise`
@@ -167,6 +167,9 @@ return {
 Compatible with n8n version 1.0+
 
 ## Version History
+
+### 1.1.4
+- Added `iconv-lite` (character encoding conversion) and `$()` helper for upstream node data access — 60 libraries total
 
 ### 1.1.2
 - Added `exiftool-vendored` (EXIF metadata) and `xlsx` (classic XLSX read/write) — 59 libraries total
