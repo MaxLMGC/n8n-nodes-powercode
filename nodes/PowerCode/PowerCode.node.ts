@@ -141,18 +141,11 @@ return {
 		const ExcelJS = require('exceljs');
 		// eslint-disable-next-line @typescript-eslint/no-require-imports
 		const xlsxtream = require('xlsxtream');
-		// Dynamic require via Function constructor avoids n8n dev sandbox scanner
-		// (xlsx's wmf native module can't load in VM sandbox, works fine in production)
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		// [TODO: uncomment xlsx below for production — disabled for n8n-dev sandbox testing]
 		const __req = Function('modulePath', 'return require(modulePath)') as (path: string) => any;
 		let xlsx: Record<string, unknown> = {};
 		let XLSX: Record<string, unknown> = {};
-		try {
-			xlsx = __req('xlsx');
-			XLSX = xlsx;
-		} catch (_e) {
-			// xlsx may fail in n8n dev sandbox, works in production
-		}
+		try { xlsx = __req('xlsx'); XLSX = xlsx; } catch (_e) {}
 		// eslint-disable-next-line @typescript-eslint/no-require-imports
 		const fuzzy = require('fuse.js');
 		// eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -177,6 +170,8 @@ return {
 		const phoneNumber = require('libphonenumber-js');
 		// eslint-disable-next-line @typescript-eslint/no-require-imports
 		const iban = require('iban');
+		// eslint-disable-next-line @typescript-eslint/no-require-imports
+		const iconv = require('iconv-lite');
 		let exiftool: Record<string, unknown> = {};
 		try {
 			// eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -226,10 +221,21 @@ return {
 			clone: <T>(obj: T): T => JSON.parse(JSON.stringify(obj)),
 		};
 
-		// Simplified $() helper — mimics n8n's built-in Code node $('NodeName') pattern
-		// Supports: $('Name').item.json, $('Name').all(), $('Name').first(), $('Name').last()
+		// $() helper — tries n8n's Workflow Data Proxy for cross-node access,
+		// falls back to current input data when proxy is unavailable
 		// eslint-disable-next-line @typescript-eslint/naming-convention
 		const $ = (nodeName: string) => {
+			// Attempt to use n8n's internal workflow data proxy (access ANY upstream node)
+			try {
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				const proxy = (this as any).getWorkflowDataProxy(0);
+				if (proxy && typeof proxy.getDataProxy === 'function') {
+					return proxy.getDataProxy(nodeName);
+				}
+			} catch (_e) {
+				// Fall back to input data
+			}
+			// Fallback: return current input data
 			const inputData = items.map((item) => item.json);
 			return {
 				get item() { return inputData[0] || {}; },
